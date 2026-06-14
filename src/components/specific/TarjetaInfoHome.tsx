@@ -4,25 +4,25 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import TarjetaBase from '../ui/TarjetaBase'; 
 import { COLORES, ESPACIADO } from '../../theme/tema';
 
-// Interfaz clara: Datos visuales vs Eventos lógicos
+import { Ionicons } from '@expo/vector-icons';
+
 interface PropsTarjetaInfo {
-  // Props Visuales
   titulo: string;
   subtitulo: string;
-  colorFondoIcono: string; // ej: celeste para el plan, azul claro para el libro
-  
-  // Props de Lógica
+  colorFondoIcono: string; 
+  nombreIcono: keyof typeof Ionicons.glyphMap;
   onPress: () => void;
 }
 
-export default function TarjetaInfoHome({ titulo, subtitulo, colorFondoIcono, onPress }: PropsTarjetaInfo) {
+export default function TarjetaInfoHome({ titulo, subtitulo, colorFondoIcono, nombreIcono, onPress }: PropsTarjetaInfo) {
   return (
     <TouchableOpacity activeOpacity={0.7} style={styles.contenedorFlex} onPress={onPress}>
       <TarjetaBase>
         
         {/* Contenedor del ícono (El círculo de color) */}
         <View style={[styles.circuloIcono, { backgroundColor: colorFondoIcono }]}>
-            {/* TODO: [RECORDATORIO EXPO] Insertar ícono de Expo aquí adentro */}
+            {/* 🚀 CORRECCIÓN: Se inserta el componente consumiendo la propiedad nombreIcono */}
+            <Ionicons name={nombreIcono} size={20} color={COLORES.textoBlanco} />
         </View>
         
         <Text style={styles.titulo}>{titulo}</Text>
@@ -35,7 +35,7 @@ export default function TarjetaInfoHome({ titulo, subtitulo, colorFondoIcono, on
 
 const styles = StyleSheet.create({
   contenedorFlex: {
-    flex: 1, // Toma el 50% del ancho en una grilla flex-row
+    flex: 1, 
   },
   circuloIcono: {
     width: 40,

@@ -52,18 +52,15 @@ export default function ComparativaResultadoScreen({ navigation }: any) {
 
       <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContenido} showsVerticalScrollIndicator={false}>
         
-
         {tabActiva === 'Resumen' && (
            <View>
              <Text style={styles.tituloSeccion}>Diferencia rápida</Text>
-             {/* ... (Aquí va el código de las tarjetas blancas y el foquito que ya hicimos) ... */}
              <View style={styles.cajaInsight}>
                <Text style={styles.textoInsight}>{data.fitNarrative}</Text>
              </View>
            </View>
         )}
 
- 
         {tabActiva === 'Intensidad' && (
           <View>
             <Text style={styles.tituloSeccion}>Análisis de Intensidad</Text>
@@ -72,34 +69,12 @@ export default function ComparativaResultadoScreen({ navigation }: any) {
             </Text>
 
             <TarjetaBase>
-              {/* Mapeamos directamente los valores 'left' y 'right' del schema */}
-              <BarraComparativa 
-                label="Matemáticas" 
-                scoreA={data.dimensions.left.math} 
-                scoreB={data.dimensions.right.math} 
-              />
-              <BarraComparativa 
-                label="Programación" 
-                scoreA={data.dimensions.left.coding} 
-                scoreB={data.dimensions.right.coding} 
-              />
-              <BarraComparativa 
-                label="Gestión y Liderazgo" 
-                scoreA={data.dimensions.left.management} 
-                scoreB={data.dimensions.right.management} 
-              />
-              <BarraComparativa 
-                label="Comunicación" 
-                scoreA={data.dimensions.left.communication} 
-                scoreB={data.dimensions.right.communication} 
-              />
-              <BarraComparativa 
-                label="Práctica de Laboratorio" 
-                scoreA={data.dimensions.left.practice} 
-                scoreB={data.dimensions.right.practice} 
-              />
+              <BarraComparativa label="Matemáticas" scoreA={data.dimensions.left.math} scoreB={data.dimensions.right.math} />
+              <BarraComparativa label="Programación" scoreA={data.dimensions.left.coding} scoreB={data.dimensions.right.coding} />
+              <BarraComparativa label="Gestión y Liderazgo" scoreA={data.dimensions.left.management} scoreB={data.dimensions.right.management} />
+              <BarraComparativa label="Comunicación" scoreA={data.dimensions.left.communication} scoreB={data.dimensions.right.communication} />
+              <BarraComparativa label="Práctica de Laboratorio" scoreA={data.dimensions.left.practice} scoreB={data.dimensions.right.practice} />
 
-              {/* Leyenda simple */}
               <View style={styles.leyenda}>
                 <View style={styles.itemLeyenda}>
                   <View style={[styles.cuadroColor, { backgroundColor: COLORES.primario }]} />
@@ -114,7 +89,6 @@ export default function ComparativaResultadoScreen({ navigation }: any) {
           </View>
         )}
 
-
         {tabActiva === 'Cursos' && (
           <View>
             <Text style={styles.tituloSeccion}>Malla Curricular</Text>
@@ -122,7 +96,6 @@ export default function ComparativaResultadoScreen({ navigation }: any) {
               Toca cualquier curso para que nuestra IA te explique de qué trata.
             </Text>
 
-            {/* Selector de Carrera para ver la malla */}
             <View style={{ flexDirection: 'row', gap: 10, marginBottom: ESPACIADO.md }}>
               <TouchableOpacity style={[styles.pildoraFiltro, styles.pildoraFiltroActiva]}>
                 <Text style={[styles.textoFiltro, styles.textoFiltroActivo]}>{nombreLeft}</Text>
@@ -132,7 +105,6 @@ export default function ComparativaResultadoScreen({ navigation }: any) {
               </TouchableOpacity>
             </View>
 
-            {/* Iterando los ciclos y cursos del Mock */}
             {curriculumSistemasMock.cycles.map((ciclo) => (
               <View key={ciclo.cycleNumber} style={{ marginBottom: ESPACIADO.lg }}>
                 <Text style={{ fontSize: 16, fontWeight: 'bold', color: COLORES.primario, marginBottom: 8 }}>
@@ -149,14 +121,13 @@ export default function ComparativaResultadoScreen({ navigation }: any) {
                       borderRadius: ESPACIADO.radio,
                       marginBottom: 8,
                       borderWidth: 1,
-                      borderColor: COLORES.borde,
+                      borderColor: COLORES.bordeGris,
                       flexDirection: 'row',
                       justifyContent: 'space-between',
                       alignItems: 'center'
                     }}
                     onPress={() => setModalVisible(true)}                  
-                    >
-                        
+                  >
                     <View style={{ flex: 1 }}>
                       <Text style={{ fontSize: 14, fontWeight: 'bold', color: COLORES.textoPrincipal }}>
                         {curso.name}
@@ -166,7 +137,6 @@ export default function ComparativaResultadoScreen({ navigation }: any) {
                       </Text>
                     </View>
                     
-                    {/* Botón visual para indicar que se puede pedir explicación */}
                     <View style={{ backgroundColor: '#E0F2FE', paddingHorizontal: 12, paddingVertical: 6, borderRadius: 12 }}>
                       <Text style={{ fontSize: 12, color: '#0369A1', fontWeight: 'bold' }}>Explicar</Text>
                     </View>
@@ -174,15 +144,12 @@ export default function ComparativaResultadoScreen({ navigation }: any) {
                 ))}
               </View>
             ))}
-
           </View>
         )}
-
 
         {tabActiva === 'Acciones' && (
           <View>
             <Text style={styles.tituloSeccion}>Siguientes Pasos</Text>
-            
             <TarjetaBase>
               <Text style={styles.subtituloTarjeta}>Preguntas para ti o tu familia:</Text>
               {data.recommendedQuestions?.map((pregunta, index) => (
@@ -194,16 +161,22 @@ export default function ComparativaResultadoScreen({ navigation }: any) {
             </TarjetaBase>
           </View>
         )}
-
       </ScrollView>
 
-      <View style={styles.footerFlotante}>
-        <Boton texto="Ver match con mi perfil" variante="primario" onPress={() => navigation.navigate('Match')} />
-      </View>
-        <ModalExplicacionCurso 
+    <View style={styles.footerFlotante}>
+    <Boton 
+    texto="Ver match con mi perfil" 
+    variante="primario" 
+    onPress={() => navigation.navigate('MainTabs', { screen: 'Match' })} 
+    nombreIcono="sparkles"
+    />
+</View>
+      
+      <ModalExplicacionCurso 
         visible={modalVisible} 
         onClose={() => setModalVisible(false)} 
-      />    </ContenedorSeguro>
+      />
+    </ContenedorSeguro>
   );
 }
 

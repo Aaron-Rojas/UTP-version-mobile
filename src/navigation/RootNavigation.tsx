@@ -6,6 +6,7 @@ import TabNavigation from './TabNavigation';
 
 import OnboardingScreen from '../screens/auth/OnboardingScreen';
 import ComparativaResultadoScreen from '../screens/main/ComparativaResultadoScreen';
+import FormularioScreen from '../screens/main/FormularioScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -19,6 +20,7 @@ export default function RootNavigation() {
     
       <Stack.Screen name="Onboarding" component={OnboardingScreen} />
       <Stack.Screen name="Coliseo" component={ComparativaResultadoScreen}/>
+      <Stack.Screen name="Form" component={FormularioScreen} />
 
     </Stack.Navigator>
   );

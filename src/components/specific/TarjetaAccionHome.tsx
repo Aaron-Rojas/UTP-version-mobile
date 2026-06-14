@@ -1,6 +1,9 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { COLORES, ESPACIADO } from '../../theme/tema';
+import { COLORES, ESPACIADO,SOMBRAS } from '../../theme/tema';
+
+import { Ionicons } from '@expo/vector-icons';
+
 
 // Interfaz estricta separando responsabilidades
 interface PropsTarjetaAccion {
@@ -10,62 +13,50 @@ interface PropsTarjetaAccion {
 
 export default function TarjetaAccionHome({ onPress }: PropsTarjetaAccion) {
   return (
-    <View style={styles.contenedorAzul}>
+    <TouchableOpacity activeOpacity={0.8} style={styles.tarjeta} onPress={onPress}>
+      <View style={styles.contenido}>
+        <Text style={styles.titulo}>Ir al Coliseo</Text>
+        <Text style={styles.subtitulo}>Compara tus opciones frente a frente y descubre tu match ideal.</Text>
+      </View>
       
-      <Text style={styles.titulo}>Empieza comparando dos carreras</Text>
-      
-      <Text style={styles.subtitulo}>
-        Descubre qué camino se adapta mejor a tu perfil.
-      </Text>
-
-      {/* TODO: [RECORDATORIO EXPO] Ícono de flechas cruzadas (marca de agua) posicionado de forma absoluta a la derecha */}
-
-      {/* Botón de acción interno */}
-      <TouchableOpacity activeOpacity={0.8} style={styles.botonBlanco} onPress={onPress}>
-        <Text style={styles.textoBoton}>Comparar carreras</Text>
-        {/* TODO: [RECORDATORIO EXPO] Ícono de flecha pequeña "->" */}
-      </TouchableOpacity>
-
-    </View>
+      <View style={styles.cajaIcono}>
+        <Ionicons name="rocket-outline" size={36} color={COLORES.primario} />
+      </View>
+    </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
-  contenedorAzul: {
+  tarjeta: {
     backgroundColor: COLORES.primario,
     borderRadius: ESPACIADO.radio,
     padding: ESPACIADO.lg,
-    marginTop: ESPACIADO.md,
-    marginBottom: ESPACIADO.md,
-    overflow: 'hidden', 
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    ...SOMBRAS.fuerte, // Aprovechamos las sombras que creamos
+  },
+  contenido: {
+    flex: 1,
+    paddingRight: ESPACIADO.md,
   },
   titulo: {
-    fontSize: 22,
+    fontSize: 20,
     fontWeight: 'bold',
     color: COLORES.textoBlanco,
-    marginBottom: 8,
-    maxWidth: '85%',
+    marginBottom: 4,
   },
   subtitulo: {
     fontSize: 14,
-    color: COLORES.textoBlanco,
-    opacity: 0.9,
-    marginBottom: ESPACIADO.xl,
-    maxWidth: '80%',
+    color: 'rgba(255,255,255,0.8)',
+    lineHeight: 20,
   },
-  botonBlanco: {
+  cajaIcono: {
     backgroundColor: COLORES.textoBlanco,
-    paddingVertical: 14,
-    paddingHorizontal: ESPACIADO.md,
-    borderRadius: ESPACIADO.radio,
-    alignItems: 'center',
-    flexDirection: 'row',
+    width: 64,
+    height: 64,
+    borderRadius: 32,
     justifyContent: 'center',
-    gap: 8,
-  },
-  textoBoton: {
-    color: COLORES.primario,
-    fontSize: 16,
-    fontWeight: 'bold',
+    alignItems: 'center',
   }
 });

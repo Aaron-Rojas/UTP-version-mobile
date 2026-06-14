@@ -8,6 +8,7 @@ export interface PropsBoton {
   onPress: () => void;
   variante?: 'primario' | 'secundario' | 'invertido' | 'bordeado';
   deshabilitado?: boolean;
+  nombreIcono: string;
 }
 
 export default function Boton({ 

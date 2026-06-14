@@ -96,6 +96,7 @@ export default function CompareScreen({ navigation }: any) {
                 navigation.navigate('Coliseo', { ids: carrerasSeleccionadas });              
               }
             }} 
+            nombreIcono='a'
           />
         </View>
       )}

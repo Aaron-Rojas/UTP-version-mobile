@@ -8,6 +8,8 @@ import TarjetaAccionHome from '../../components/specific/TarjetaAccionHome';
 import TarjetaInfoHome from '../../components/specific/TarjetaInfoHome';
 import { COLORES, ESPACIADO } from '../../theme/tema';
 
+import { Ionicons } from '@expo/vector-icons'; 
+
 export default function HomeScreen({ navigation }: any) {
   return (
     <ContenedorSeguro>
@@ -26,20 +28,22 @@ export default function HomeScreen({ navigation }: any) {
         {/* 2. La tarjeta Azul (Call to Action principal) navega a Comparar */}
         <TarjetaAccionHome onPress={() => navigation.navigate('Comparar')} />
         
-        {/* 3. Grilla de accesos rápidos */}
+       {/* 3. Grilla de accesos rápidos */}
         <View style={styles.contenedorGrilla}>
           <TarjetaInfoHome 
             titulo="Entiende un curso" 
             subtitulo="Explora las mallas curriculares." 
             colorFondoIcono={COLORES.secundario} 
-            onPress={() => navigation.navigate('Comparar')} // Lleva al coliseo/selector
+            nombreIcono="book-outline" // 🚀 Ícono de libro insertado
+            onPress={() => navigation.navigate('MainTabs', { screen: 'Compare' })} 
           />
           
           <TarjetaInfoHome 
-            titulo="Crea un plan familiar" 
-            subtitulo="Involucra a tus padres en la decisión." 
+            titulo="Plan familiar" 
+            subtitulo="Involucra a tus padres en tu decisión." 
             colorFondoIcono={COLORES.terciario} 
-            onPress={() => navigation.navigate('Plan')} // Lleva a la hoja de ruta
+            nombreIcono="people-outline" // 🚀 Ícono de familia/equipo insertado
+            onPress={() => navigation.navigate('MainTabs', { screen: 'Plan' })} 
           />
         </View>
 

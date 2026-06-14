@@ -1,15 +1,20 @@
 import React, { ReactNode } from 'react';
-import { View, StyleSheet } from 'react-native';
-import { COLORES, ESPACIADO } from '../../theme/tema';
+import { View, StyleSheet, ViewStyle } from 'react-native';
+import { COLORES, ESPACIADO, SOMBRAS } from '../../theme/tema';
 
 interface PropsTarjeta {
   children: ReactNode; // Esto permite meter cualquier cosa dentro de la tarjeta
   sinPadding?: boolean; // Opción por si quieres que una imagen llegue hasta el borde
+  style?: ViewStyle; // Permite inyectar estilos extra desde afuera (ej: márgenes)
 }
 
-export default function TarjetaBase({ children, sinPadding = false }: PropsTarjeta) {
+export default function TarjetaBase({ children, sinPadding = false, style }: PropsTarjeta) {
   return (
-    <View style={[styles.contenedor, sinPadding ? styles.sinPadding : styles.conPadding]}>
+    <View style={[
+      styles.contenedor, 
+      sinPadding ? styles.sinPadding : styles.conPadding,
+      style
+    ]}>
       {children}
     </View>
   );
@@ -18,23 +23,17 @@ export default function TarjetaBase({ children, sinPadding = false }: PropsTarje
 const styles = StyleSheet.create({
   contenedor: {
     backgroundColor: COLORES.textoBlanco,
-    borderRadius: ESPACIADO.radio,
+    borderRadius: ESPACIADO.radio, // Aquí entra automáticamente el efecto Squircle (24)
     borderColor: COLORES.bordeGris,
     borderWidth: 1,
     width: '100%',
     
-    // Sombras sutiles nativas para iOS y Android
-    shadowColor: COLORES.textoGrisOscuro,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.05,
-    shadowRadius: 3.84,
-    elevation: 2, // Sombra en Android
+    // 🚀 La Magia: Reemplazamos tus 6 líneas de sombra harcodeada 
+    // por la propagación de nuestro objeto centralizado.
+    ...SOMBRAS.suave, 
   },
   conPadding: {
-    padding: ESPACIADO.lg, // 24px de respiro interno
+    padding: ESPACIADO.lg, 
   },
   sinPadding: {
     padding: 0,

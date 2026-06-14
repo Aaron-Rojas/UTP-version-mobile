@@ -4,11 +4,12 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 // import { Ionicons } from '@expo/vector-icons'; // Íconos nativos de Expo
 import { COLORES } from '../theme/tema';
 
+import { Ionicons } from '@expo/vector-icons';
+
 // Importamos las 3 pantallas que acabamos de crear
 import HomeScreen from '../screens/main/HomeScreen';
 import CompareScreen from '../screens/main/CompareScreen';
 import MatchScreen from '../screens/main/MatchScreen';
-import ComparativaResultadoScreen from '../screens/main/ComparativaResultadoScreen';
 import PlanScreen from '../screens/main/PlanScreen';
 const Tab = createBottomTabNavigator();
 
@@ -18,11 +19,20 @@ export default function TabNavigation() {
       screenOptions={({ route }) => ({
         // Lógica para cambiar el ícono según la pestaña
         tabBarIcon: ({ focused, color, size }) => {
-          let iconName: any;
-          if (route.name === 'Inicio') iconName = focused ? 'home' : 'home-outline';
-          else if (route.name === 'Explorar') iconName = focused ? 'compass' : 'compass-outline';
-          else if (route.name === 'Perfil') iconName = focused ? 'person' : 'person-outline';
-          // return <Ionicons name={iconName} size={size} color={color} />;
+          let iconName: keyof typeof Ionicons.glyphMap = 'help-circle-outline'; // Ícono por defecto
+          if (route.name === 'Home') {
+        
+        iconName = focused ? 'home' : 'home-outline';
+        
+      } else if (route.name === 'Match') {
+        iconName = focused ? 'sparkles' : 'sparkles-outline'; // La brújula o estrellas para el Oráculo
+      } else if (route.name === 'Comparar') {
+        iconName = focused ? 'git-compare' : 'git-compare-outline';
+      } else if (route.name === 'Plan') {
+        iconName = focused ? 'map' : 'map-outline';
+      }  
+      return <Ionicons name={iconName} size={size} color={color} />;
+      
         },
         tabBarActiveTintColor: COLORES.primario,
         tabBarInactiveTintColor: COLORES.textoSecundario,

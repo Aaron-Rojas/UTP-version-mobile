@@ -25,7 +25,25 @@ export const ESPACIADO = {
   xl: 32,
 
   // --- Espaciados Específicos de UI ---
-  py: 16,     // Padding vertical para botones
-  px: 24,     // Padding horizontal
-  radio: 12,  // Bordes redondeados
+  py: 16,     
+  px: 24,     
+  radio: 24,  // 🚀 ACTUALIZADO: El efecto Squircle (antes 12)
+};
+
+// 🚀 NUEVO: Sistema de sombras táctiles para UX adolescente
+export const SOMBRAS = {
+  suave: {
+    shadowColor: '#1E293B', // Usamos tu textoPrincipal para una sombra más natural
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.08,
+    shadowRadius: 12,
+    elevation: 4, 
+  },
+  fuerte: {
+    shadowColor: '#1E293B',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.12,
+    shadowRadius: 16,
+    elevation: 8,
+  }
 };
