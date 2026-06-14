@@ -1,106 +1,76 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-
-// Importando nuestros Ladrillos UI
 import TarjetaBase from '../ui/TarjetaBase';
-import BarraProgreso from '../ui/BarraProgreso'; 
 import { COLORES, ESPACIADO } from '../../theme/tema';
 
+// Importamos el mock que respeta el action_plan.schema.json
+import { actionPlanMock } from '../../mocks/actionPlanMock';
+
 export default function TarjetaProgresoHome() {
-  // Lógica: Esto luego vendrá del backend (Supabase)
-  const pasoActual = 1; 
-  const pasosTotales = 3;
+  // 1. Extraemos las tareas del contrato
+  const tareas = actionPlanMock.tasks;
+  
+  // 2. Calculamos la data real
+  const tareasCompletadas = tareas.filter(t => t.status === 'done').length;
+  const totalTareas = tareas.length;
+  const porcentaje = totalTareas === 0 ? 0 : Math.round((tareasCompletadas / totalTareas) * 100);
 
   return (
-    <TarjetaBase>
-      
-      {/* Cabecera */}
-      <View style={styles.cabecera}>
-        <Text style={styles.titulo}>Tu progreso</Text>
-        <Text style={styles.contador}>{pasoActual} de {pasosTotales} pasos</Text>
-      </View>
+    <View style={styles.margen}>
+      <TarjetaBase>
+        <Text style={styles.titulo}>Tu progreso actual</Text>
+        <Text style={styles.subtitulo}>
+          Has completado {tareasCompletadas} de {totalTareas} pasos recomendados.
+        </Text>
 
-      {/* 1. Consumiendo tu componente UI independiente */}
-      <View style={styles.contenedorBarra}>
-        <BarraProgreso pasoActual={pasoActual} pasosTotales={pasosTotales} />
-      </View>
-
-      {/* 2. Los "Radio Buttons" / Checklist Secuencial */}
-      <View style={styles.listaRadios}>
-        
-        {/* Paso 1: Completado */}
-        <View style={styles.fila}>
-          <View style={styles.radioActivo} />
-          <Text style={styles.textoActivo}>Comparar opciones</Text>
+        {/* Barra de Progreso Dinámica */}
+        <View style={styles.contenedorBarra}>
+          <View style={styles.fondoBarra}>
+            <View style={[styles.rellenoBarra, { width: `${porcentaje}%` }]} />
+          </View>
+          <Text style={styles.textoPorcentaje}>{porcentaje}%</Text>
         </View>
-
-        {/* Paso 2: Pendiente */}
-        <View style={styles.fila}>
-          <View style={styles.radioInactivo} />
-          <Text style={styles.textoInactivo}>Entender cursos</Text>
-        </View>
-
-        {/* Paso 3: Pendiente */}
-        <View style={styles.fila}>
-          <View style={styles.radioInactivo} />
-          <Text style={styles.textoInactivo}>Crear plan familiar</Text>
-        </View>
-
-      </View>
-
-    </TarjetaBase>
+      </TarjetaBase>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  cabecera: { 
-    flexDirection: 'row', 
-    justifyContent: 'space-between', 
-    marginBottom: ESPACIADO.md 
+  margen: {
+    marginBottom: ESPACIADO.md,
   },
-  titulo: { 
-    fontSize: 16, 
-    fontWeight: 'bold', 
-    color: COLORES.textoPrincipal 
+  titulo: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: COLORES.textoPrincipal,
+    marginBottom: 4,
   },
-  contador: { 
-    fontSize: 12, 
-    fontWeight: 'bold', 
-    color: COLORES.primario 
+  subtitulo: {
+    fontSize: 14,
+    color: COLORES.textoSecundario,
+    marginBottom: ESPACIADO.md,
   },
-  contenedorBarra: { 
-    marginBottom: ESPACIADO.lg 
+  contenedorBarra: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
   },
-  
-  // Estilos de los "Radios"
-  listaRadios: { 
-    gap: 12 
+  fondoBarra: {
+    flex: 1,
+    height: 8,
+    backgroundColor: '#E2E8F0',
+    borderRadius: 4,
+    overflow: 'hidden',
   },
-  fila: { 
-    flexDirection: 'row', 
-    alignItems: 'center', 
-    gap: 10 
+  rellenoBarra: {
+    height: '100%',
+    backgroundColor: COLORES.terciario, // Un color verde/celeste motivador
+    borderRadius: 4,
   },
-  radioActivo: { 
-    width: 20, 
-    height: 20, 
-    borderRadius: 10, 
-    backgroundColor: COLORES.primario, 
-    borderWidth: 4, 
-    borderColor: '#Dbf0fe' // Simula el halo claro alrededor del check azul
-  },
-  radioInactivo: { 
-    width: 20, 
-    height: 20, 
-    borderRadius: 10, 
-    borderWidth: 2, 
-    borderColor: COLORES.borde 
-  },
-  textoActivo: { 
-    fontWeight: 'bold', 
-    color: COLORES.textoPrincipal 
-  },
-  textoInactivo: { 
-    color: COLORES.textoSecundario 
+  textoPorcentaje: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: COLORES.textoPrincipal,
+    width: 35,
   }
 });

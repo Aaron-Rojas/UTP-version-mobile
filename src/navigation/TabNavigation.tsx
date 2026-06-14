@@ -4,13 +4,12 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 // import { Ionicons } from '@expo/vector-icons'; // Íconos nativos de Expo
 import { COLORES } from '../theme/tema';
 
-import ActionPlan from '../screens/main/ActionPlan';
-
 // Importamos las 3 pantallas que acabamos de crear
 import HomeScreen from '../screens/main/HomeScreen';
 import CompareScreen from '../screens/main/CompareScreen';
 import MatchScreen from '../screens/main/MatchScreen';
 import ComparativaResultadoScreen from '../screens/main/ComparativaResultadoScreen';
+import PlanScreen from '../screens/main/PlanScreen';
 const Tab = createBottomTabNavigator();
 
 export default function TabNavigation() {
@@ -38,7 +37,7 @@ export default function TabNavigation() {
       <Tab.Screen name='Inicio' component={HomeScreen} />
       <Tab.Screen name= 'Comparar' component={CompareScreen}/>
       <Tab.Screen name='Match' component={MatchScreen} />
-      <Tab.Screen name='Plan' component={ActionPlan} />
+      <Tab.Screen name='Plan' component={PlanScreen} />
       
     </Tab.Navigator>
   );

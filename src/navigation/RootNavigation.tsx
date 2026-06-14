@@ -16,10 +16,10 @@ export default function RootNavigation() {
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Registro" component={RegistroScreen} />
       <Stack.Screen name="MainTabs" component={TabNavigation} />
-
+    
       <Stack.Screen name="Onboarding" component={OnboardingScreen} />
       <Stack.Screen name="Coliseo" component={ComparativaResultadoScreen}/>
-      
+
     </Stack.Navigator>
   );
 }
