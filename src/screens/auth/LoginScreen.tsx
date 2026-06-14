@@ -41,7 +41,7 @@ export default function LoginScreen({ navigation }: any) {
         <Boton 
           texto="Ingresar" 
           variante="primario" 
-          onPress={() => navigation.replace('MainTabs')} 
+          onPress={() => navigation.replace('Onboarding')} 
         />
         
         <View style={{ height: ESPACIADO.sm }} />
